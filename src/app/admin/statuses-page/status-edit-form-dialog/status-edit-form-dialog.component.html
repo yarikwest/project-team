@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Edit status</h1>
+<div mat-dialog-content>
+  <mat-form-field class="input-full-width">
+    <input matInput placeholder="Name" [(ngModel)]="editedData.name">
+  </mat-form-field>
+  <mat-form-field class="input-full-width">
+    <input type="number" matInput placeholder="Order" [(ngModel)]="editedData.order">
+  </mat-form-field>
+  <mat-checkbox [(ngModel)]="editedData.isActive">Active</mat-checkbox>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">CANCEL</button>
+  <button mat-button [mat-dialog-close]="editedData" cdkFocusInitial>SAVE</button>
+</div>
