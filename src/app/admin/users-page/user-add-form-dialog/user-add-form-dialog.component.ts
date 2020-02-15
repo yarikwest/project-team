@@ -26,20 +26,18 @@ export class UserAddFormDialogComponent implements OnInit {
     });
   }
 
-  save() {
+  save(): User {
 
     if (this.form.invalid) {
       return;
     }
 
-    const createdUser: User = {
+    return {
       login: this.form.value.login,
       password: [...Array(16)].map(i => (~~(Math.random() * 36)).toString(36)).join(''), // generate random password string
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
       email: this.form.value.email
     };
-
-    return createdUser;
   }
 }

@@ -27,13 +27,13 @@ export class UserEditFormDialogComponent implements OnInit {
     });
   }
 
-  save() {
+  save(): User {
 
     if (this.form.invalid) {
       return;
     }
 
-    const editedUser: User = {
+    return {
       login: this.form.value.login,
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
@@ -41,7 +41,5 @@ export class UserEditFormDialogComponent implements OnInit {
       id: this.data.id,
       password: this.data.password
     };
-
-    return editedUser;
   }
 }
