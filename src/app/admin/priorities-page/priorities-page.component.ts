@@ -35,11 +35,11 @@ export class PrioritiesPageComponent implements OnInit {
   openAddForm(): void {
     const dialogRef = this.dialog.open(PriorityAddFormDialogComponent, {
       width: '500px',
-      data: {id: this.dataSource.length, name: '', isActive: false}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: Priority) => {
       if (result) {
+        result.id = this.dataSource.length;
         this.dataSource.push(result);
         this.table.renderRows();
       }

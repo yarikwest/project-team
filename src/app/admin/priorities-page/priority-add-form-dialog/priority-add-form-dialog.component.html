@@ -1,11 +1,16 @@
 <h1 mat-dialog-title>Add new priority</h1>
 <div mat-dialog-content>
-  <mat-form-field class="input-full-width">
-    <input matInput placeholder="Name" [(ngModel)]="data.name">
-  </mat-form-field>
-  <mat-checkbox [(ngModel)]="data.isActive">Active</mat-checkbox>
+  <form [formGroup]="form">
+    <mat-form-field class="input-full-width">
+      <input matInput placeholder="Name" formControlName="name">
+      <mat-error *ngIf="form.get('name').hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+  </form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="dialogRef.close()">CANCEL</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>SAVE</button>
+  <button mat-button [mat-dialog-close]="save()" [disabled]="form.invalid">SAVE</button>
 </div>

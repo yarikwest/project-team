@@ -1,5 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Priority} from '../../../shared/interfaces';
 
 @Component({
@@ -9,12 +10,29 @@ import {Priority} from '../../../shared/interfaces';
 })
 export class PriorityAddFormDialogComponent implements OnInit {
 
+  form: FormGroup;
+
   constructor(
     public dialogRef: MatDialogRef<PriorityAddFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Priority
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      isActive: new FormControl(false)
+    });
+  }
+
+  save(): Priority {
+    if (this.form.invalid) {
+      return;
+    }
+
+    return {
+      name: this.form.value.name,
+      isActive: this.form.value.isActive
+    };
   }
 
 }

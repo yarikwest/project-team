@@ -40,11 +40,11 @@ export class StatusesPageComponent implements OnInit {
   openAddForm(): void {
     const dialogRef = this.dialog.open(StatusAddFormDialogComponent, {
       width: '500px',
-      data: {id: this.dataSource.length, name: '', order: 0, isActive: false}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: Status) => {
       if (result) {
+        result.id = this.dataSource.length;
         this.dataSource.push(result);
         this.table.renderRows();
       }

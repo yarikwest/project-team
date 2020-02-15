@@ -1,5 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Status} from '../../../shared/interfaces';
 
 @Component({
@@ -7,12 +8,33 @@ import {Status} from '../../../shared/interfaces';
   templateUrl: './status-add-form-dialog.component.html',
   styleUrls: ['./status-add-form-dialog.component.css']
 })
-export class StatusAddFormDialogComponent {
+export class StatusAddFormDialogComponent implements OnInit {
+
+  form: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<StatusAddFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Status
   ) {
+  }
+
+  ngOnInit(): void {
+    this.form = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      order: new FormControl(0, [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
+      isActive: new FormControl(false)
+    });
+  }
+
+  save(): Status {
+    if (this.form.invalid) {
+      return;
+    }
+
+    return {
+      name: this.form.value.name,
+      order: this.form.value.order,
+      isActive: this.form.value.isActive
+    };
   }
 
 }
