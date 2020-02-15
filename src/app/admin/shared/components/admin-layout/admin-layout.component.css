@@ -1,0 +1,26 @@
+mat-sidenav-container{
+  height: calc(100% - 64px);
+  top: 64px;
+}
+mat-sidenav {
+  background-color: #3f51b5;
+  width: 200px;
+}
+
+mat-sidenav-content {
+  padding: 20px;
+}
+
+mat-toolbar{
+  position: fixed;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+mat-icon{
+  color: white;
+}
+
+.mat-line{
+  color: white;
+}
