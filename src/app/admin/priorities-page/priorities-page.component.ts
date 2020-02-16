@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatTable} from '@angular/material';
-import {Priority, Status} from '../../shared/interfaces';
+import {Priority} from '../../shared/interfaces';
 import {DeleteRowDialogComponent} from '../shared/components/delete-row-dialog/delete-row-dialog.component';
 import {PriorityAddFormDialogComponent} from './priority-add-form-dialog/priority-add-form-dialog.component';
 import {PriorityEditFormDialogComponent} from './priority-edit-form-dialog/priority-edit-form-dialog.component';
