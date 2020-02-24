@@ -1,0 +1,8 @@
+<div class="tasks-all-container">
+  <div *ngFor="let status of statusNameArr" class="tasks-status-container">
+    <h2>{{status}}</h2>
+    <div class="tasks-status-panel">
+      <app-task-card *ngFor="let task of data | filterTasks:status" [task]="task" (click)="openDetails(task)"></app-task-card>
+    </div>
+  </div>
+</div>

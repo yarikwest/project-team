@@ -10,12 +10,6 @@ const ELEMENT_DATA: Status[] = [
   {id: 1, name: 'to do', isActive: true, order: 1},
   {id: 2, name: 'doing', isActive: true, order: 2},
   {id: 3, name: 'done', isActive: true, order: 3},
-  {id: 4, name: 'to do', isActive: true, order: 4},
-  {id: 5, name: 'doing', isActive: true, order: 5},
-  {id: 6, name: 'done', isActive: true, order: 6},
-  {id: 7, name: 'to do', isActive: true, order: 7},
-  {id: 8, name: 'doing', isActive: true, order: 8},
-  {id: 9, name: 'done', isActive: false, order: 9},
 ];
 
 @Component({

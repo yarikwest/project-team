@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <mat-form-field class="input-full-width">
+    <mat-label>Statuses</mat-label>
+    <mat-select [(value)]="selectedStatus" [compareWith]="compareStatuses">
+      <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="selectedStatus" cdkFocusInitial>SAVE</button>
+</div>
