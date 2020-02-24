@@ -7,10 +7,16 @@ table {
   width: 100%;
 }
 
-tr.mat-row:hover{
-  background-color: rgba(63,81,181, 0.5);
+tr.mat-row:hover {
+  background-color: rgba(63, 81, 181, 0.5);
 }
 
 .btn-add {
   margin: 10px;
+}
+
+.color-chip {
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
 }

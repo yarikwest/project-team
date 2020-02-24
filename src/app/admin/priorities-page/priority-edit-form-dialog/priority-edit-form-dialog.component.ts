@@ -21,6 +21,7 @@ export class PriorityEditFormDialogComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       name: new FormControl(this.data.name, [Validators.required]),
+      color: new FormControl(this.data.color),
       isActive: new FormControl(this.data.isActive)
     });
   }
@@ -33,6 +34,7 @@ export class PriorityEditFormDialogComponent implements OnInit {
     return {
       id: this.data.id,
       name: this.form.value.name,
+      color: this.form.value.color,
       isActive: this.form.value.isActive
     };
   }

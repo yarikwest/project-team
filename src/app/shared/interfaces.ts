@@ -9,6 +9,7 @@ export interface Priority {
   id?: number;
   name: string;
   isActive: boolean;
+  color: string;
 }
 
 export interface User {
@@ -39,12 +40,7 @@ export interface Task {
   project: Project;
   status: Status;
   priority: Priority;
-  type: TypeOfTask;
-  estimatedExecutionTime: number;
-  actualExecutionTime: number;
-}
-
-export interface TypeOfTask {
-  id?: number;
-  name: string;
+  type: string;
+  estimatedExecutionTime?: number;
+  actualExecutionTime?: number;
 }

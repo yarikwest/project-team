@@ -20,6 +20,7 @@ export class PriorityAddFormDialogComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
+      color: new FormControl('#ffffff'),
       isActive: new FormControl(false)
     });
   }
@@ -31,6 +32,7 @@ export class PriorityAddFormDialogComponent implements OnInit {
 
     return {
       name: this.form.value.name,
+      color: this.form.value.color,
       isActive: this.form.value.isActive
     };
   }

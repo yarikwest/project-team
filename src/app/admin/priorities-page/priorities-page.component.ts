@@ -6,11 +6,11 @@ import {PriorityAddFormDialogComponent} from './priority-add-form-dialog/priorit
 import {PriorityEditFormDialogComponent} from './priority-edit-form-dialog/priority-edit-form-dialog.component';
 
 const ELEMENT_DATA: Priority[] = [
-  {id: 0, name: 'Highest', isActive: true},
-  {id: 1, name: 'Critical', isActive: true},
-  {id: 2, name: 'Alarming', isActive: true},
-  {id: 3, name: 'Low', isActive: true},
-  {id: 4, name: 'Lowest', isActive: true},
+  {id: 0, color: '#ff0000', name: 'Highest', isActive: true},
+  {id: 1, color: '#ffaa00', name: 'Critical', isActive: true},
+  {id: 2, color: '#ffff00', name: 'Alarming', isActive: true},
+  {id: 3, color: '#00ff00', name: 'Low', isActive: true},
+  {id: 4, color: '#00aaff', name: 'Lowest', isActive: true},
 ];
 
 @Component({
@@ -21,7 +21,7 @@ const ELEMENT_DATA: Priority[] = [
 export class PrioritiesPageComponent implements OnInit {
 
   @ViewChild(MatTable, {static: false}) table: MatTable<any>;
-  displayedColumns: string[] = ['id', 'name', 'isActive', 'action'];
+  displayedColumns: string[] = ['id', 'name', 'isActive', 'color', 'action'];
   dataSource = ELEMENT_DATA;
 
   constructor(
