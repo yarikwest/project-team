@@ -4,7 +4,7 @@
     <div class="task-variable-container">
       <mat-icon>account_box</mat-icon>
       <span>Attached to: <button mat-button class="mat-button-edit" (click)="changeUser()">Edit</button></span>
-      <div class="user-avatar" *ngIf="data.user.firstName.trim() || data.user.lastName.trim(); else noOne">
+      <div class="user-avatar" *ngIf="data.user; else noOne">
         {{data.user.firstName + ' ' + data.user.lastName}}
       </div>
       <ng-template #noOne><br>No one</ng-template>

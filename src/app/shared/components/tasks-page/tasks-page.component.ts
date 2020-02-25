@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Status, Task} from '../../interfaces';
 import {MatDialog} from '@angular/material';
-import {ProjectEditFormDialogComponent} from '../../../admin/projects-page/project-edit-form-dialog/project-edit-form-dialog.component';
 import {TaskDetailsDialogComponent} from './task-details-dialog/task-details-dialog.component';
+import {TaskAddFormDialogComponent} from './task-add-form-dialog/task-add-form-dialog.component';
 
 const STATUS_DATA: Status[] = [
   {id: 1, name: 'to do', isActive: true, order: 1},
@@ -20,7 +20,6 @@ const ELEMENT_DATA: Task[] = [
     status: {id: 1, name: 'to do', isActive: true, order: 1},
     project: {id: 0, created: new Date(), name: 'project0', description: 'lorem0', identity: 'ident0', isActive: true, users: []},
     type: 'bug',
-    user: {id: 0, login: 'login0', password: 'password0', firstName: '', lastName: '', email: 'email@o0.pl'}
   },
   {
     id: 1,
@@ -131,7 +130,7 @@ const ELEMENT_DATA: Task[] = [
     project: {id: 0, created: new Date(), name: 'project0', description: 'lorem0', identity: 'ident0', isActive: true, users: []},
     type: 'feature',
     user: {id: 0, login: 'login0', password: 'password0', firstName: 'first0', lastName: 'last0', email: 'email@o0.pl'}
-  },
+  }
 ];
 
 @Component({
@@ -162,6 +161,23 @@ export class TasksPageComponent implements OnInit {
     this.dialog.open(TaskDetailsDialogComponent, {
       width: '50vw',
       data: task
+    });
+  }
+
+  openAddForm(): void {
+    const dialogRef = this.dialog.open(TaskAddFormDialogComponent, {
+      width: '500px',
+      data: {
+        status: {id: 1, name: 'to do', isActive: true, order: 1},
+        project: {id: 0, created: new Date(), name: 'project0', description: 'lorem0', identity: 'ident0', isActive: true, users: []},
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result: Task) => {
+      if (result) {
+        result.id = this.data.length;
+        this.data.push(result);
+      }
     });
   }
 }

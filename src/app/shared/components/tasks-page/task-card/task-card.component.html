@@ -8,7 +8,8 @@
     <p>{{task.theme}}</p>
   </mat-card-content>
   <mat-card-actions align="end">
-    <div class="user-avatar" *ngIf="(task.user.firstName.trim() || task.user.lastName.trim()); else userTemplate">
+    <div class="user-avatar"
+         *ngIf="(task.user); else userTemplate">
       {{task.user.firstName}} {{task.user.lastName}}
     </div>
     <ng-template #userTemplate>

@@ -25,6 +25,7 @@ import {TaskChangePriorityDialogComponent} from './components/tasks-page/task-ed
 import {TaskEditTypeDialogComponent} from './components/tasks-page/task-edit/task-edit-type-dialog/task-edit-type-dialog.component';
 import {TaskEditDescriptionDialogComponent} from './components/tasks-page/task-edit/task-edit-description-dialog/task-edit-description-dialog.component';
 import {TaskChangeStatusDialogComponent} from './components/tasks-page/task-edit/task-change-status-dialog/task-change-status-dialog.component';
+import { TaskAddFormDialogComponent } from './components/tasks-page/task-add-form-dialog/task-add-form-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {TaskChangeStatusDialogComponent} from './components/tasks-page/task-edit
     TaskChangePriorityDialogComponent,
     TaskEditTypeDialogComponent,
     TaskEditDescriptionDialogComponent,
-    TaskChangeStatusDialogComponent
+    TaskChangeStatusDialogComponent,
+    TaskAddFormDialogComponent
 
   ],
   imports: [
@@ -83,6 +85,7 @@ import {TaskChangeStatusDialogComponent} from './components/tasks-page/task-edit
     TaskEditTypeDialogComponent,
     TaskEditDescriptionDialogComponent,
     TaskChangeStatusDialogComponent,
+    TaskAddFormDialogComponent,
 
   ]
 
