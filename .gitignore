@@ -3,6 +3,10 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+application-dev.properties
+h2-db.mv.db
+h2-db.trace.db
+h2-db.lock.db
 
 ### STS ###
 .apt_generated

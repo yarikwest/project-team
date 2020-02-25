@@ -1,0 +1,91 @@
+insert into USERS (LOGIN, PASSWORD, EMAIL, FIRST_NAME, LAST_NAME)
+values ('esafell0', '09crhd', 'esafell0@cyberchimps.com', 'Edwin', 'Safell'),
+       ('codyvoy1', 'KSSEmncgL4g', 'codyvoy1@msn.com', 'Cecilia', 'O''Dyvoy'),
+       ('ofairhead2', 'ziWOjkb59', 'ofairhead2@buzzfeed.com', 'Othella', 'Fairhead'),
+       ('cstearns3', 'dpxkUUW', 'cstearns3@wix.com', 'Chelsea', 'Stearns'),
+       ('kmaddison4', 'wHox34hbJ', 'kmaddison4@domainmarket.com', 'Kirstyn', 'Maddison'),
+       ('nwilcockes5', 'ukEXlsm4P', 'nwilcockes5@ebay.co.uk', 'Nomi', 'Wilcockes'),
+       ('marondel6', 'TlWruzMcp', 'marondel6@mozilla.org', 'Meghann', 'Arondel'),
+       ('hhargrave7', 'OKI3PH3f', 'hhargrave7@ca.gov', 'Hannah', 'Hargrave'),
+       ('dfibbens8', 'kGptMm', 'dfibbens8@drupal.org', 'Dall', 'Fibbens'),
+       ('soldroyde9', 'xX9Qlro', 'soldroyde9@yolasite.com', 'Shem', 'Oldroyde');
+
+insert into STATUSES (NAME, LEVEL, IS_ACTIVE)
+values ('Muffen', 1, true),
+       ('Moat', 2, false),
+       ('Rosenbarg', 3, true),
+       ('Ferriday', 4, true),
+       ('Tinmouth', 5, false);
+
+insert into PRIORITIES (NAME, COLOR, IS_ACTIVE)
+values ('Bagger', '#435964', false),
+       ('Toohey', '#6f1031', true),
+       ('Doorly', '#072c67', false),
+       ('Balle', '#ec24c4', true),
+       ('Everest', '#958eee', true);
+
+insert into PROJECTS (NAME, DESCRIPTION, IS_ACTIVE, CREATED, IDENTITY)
+values ('ante ipsum', 'quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet', true,
+        '2019-12-20', 'venenatis tristique'),
+       ('integer ac neque', 'turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at', true,
+        '2019-06-13', 'habitasse platea dictumst etiam faucibus'),
+       ('hac habitasse',
+        'aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam',
+        false, '2019-05-08', 'luctus ultricies');
+
+insert into TASKS (CREATED, USER_ID, THEME, DESCRIPTION, PROJECT_ID, STATUS_ID, PRIORITY_ID, TYPE_OF_TASK)
+values ('2019-04-07', 7, 'nulla dapibus', 'dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh fusce',
+        2, 4, 4, 'aenean fermentum donec'),
+       ('2019-04-18', 4, 'lectus pellentesque eget',
+        'proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio', 1, 1, 1,
+        'morbi'),
+       ('2020-01-22', 10, 'mauris lacinia sapien quis',
+        'consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis', 1, 2, 3,
+        'ut massa quis'),
+       ('2019-06-03', 3, 'tincidunt lacus at velit vivamus',
+        'hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla', 1, 1, 1, 'nisi'),
+       ('2019-10-02', 5, 'donec diam neque vestibulum eget',
+        'est phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac enim',
+        2, 1, 4, 'ac'),
+       ('2019-08-27', 10, 'in eleifend quam a odio', 'venenatis lacinia aenean sit amet justo morbi ut odio cras', 3, 1,
+        5, 'proin at'),
+       ('2019-04-28', 9, 'nulla',
+        'neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante ipsum primis in', 3, 2, 2, 'at nibh'),
+       ('2019-06-16', 7, 'lacinia sapien',
+        'iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis',
+        2, 3, 4, 'varius integer'),
+       ('2019-06-06', 4, 'eleifend luctus ultricies eu nibh',
+        'nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum', 3, 5, 2,
+        'dictumst aliquam'),
+       ('2019-07-03', 10, 'praesent',
+        'justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat', 3, 4, 1, 'sit'),
+       ('2019-05-02', 7, 'vestibulum sed magna at nunc',
+        'convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh', 3, 3, 4,
+        'imperdiet sapien urna'),
+       ('2020-02-04', 7, 'cubilia curae donec pharetra magna',
+        'a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare', 1, 5, 2,
+        'aenean auctor'),
+       ('2019-05-14', 1, 'libero', 'at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis', 1, 4, 4,
+        'in'),
+       ('2019-11-14', 9, 'ut nunc vestibulum ante',
+        'integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam', 3, 4, 4, 'vel pede morbi'),
+       ('2020-01-27', 1, 'ultrices posuere cubilia curae',
+        'in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula',
+        2, 1, 1, 'lorem ipsum');
+
+insert into PROJECTS_USERS (USER_ID, PROJECT_ID)
+values (7, 3),
+       (9, 2),
+       (1, 1),
+       (8, 2),
+       (3, 3),
+       (8, 2),
+       (6, 3),
+       (8, 3),
+       (5, 1),
+       (5, 1),
+       (10, 3),
+       (1, 3),
+       (8, 3),
+       (7, 3),
+       (9, 3);
