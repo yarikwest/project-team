@@ -3,6 +3,7 @@ package pl.coderslab.project_team.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -21,5 +22,6 @@ public class Status extends BaseEntity {
     String name;
     @Min(1)
     Integer level;
-    Boolean isActive;
+    @Column(name = "is_active")
+    Boolean active;
 }
