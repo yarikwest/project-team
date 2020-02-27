@@ -59,8 +59,8 @@ CREATE TABLE projects_users
     project_id INT NOT NULL,
     created    DATETIME,
     updated    DATETIME,
-    FOREIGN KEY (user_id) REFERENCES users (id),
-    FOREIGN KEY (project_id) REFERENCES projects (id)
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS tasks CASCADE;
@@ -77,8 +77,8 @@ CREATE TABLE tasks
     type_of_task VARCHAR(250),
     created      DATETIME,
     updated      DATETIME,
-    FOREIGN KEY (user_id) REFERENCES users (id),
-    FOREIGN KEY (project_id) REFERENCES projects (id),
-    FOREIGN KEY (status_id) REFERENCES statuses (id),
-    FOREIGN KEY (priority_id) REFERENCES priorities (id)
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE,
+    FOREIGN KEY (status_id) REFERENCES statuses (id) ON DELETE CASCADE,
+    FOREIGN KEY (priority_id) REFERENCES priorities (id) ON DELETE CASCADE
 );
