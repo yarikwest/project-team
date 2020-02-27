@@ -1,5 +1,8 @@
 import {NgModule} from '@angular/core';
-import {TaskCardComponent} from './components/tasks-page/task-card/task-card.component';
+import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
@@ -14,18 +17,18 @@ import {
   MatTableModule,
   MatToolbarModule
 } from '@angular/material';
-import {TasksPageComponent} from './components/tasks-page/tasks-page.component';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import {FilterTasksPipe} from './filter-tasks.pipe';
+import {TasksPageComponent} from './components/tasks-page/tasks-page.component';
+import {TaskCardComponent} from './components/tasks-page/task-card/task-card.component';
 import {TaskDetailsDialogComponent} from './components/tasks-page/task-details-dialog/task-details-dialog.component';
-import {TaskChangeUserDialogComponent} from './components/tasks-page/task-edit/task-change-user-dialog/task-change-user-dialog.component';
-import {TaskChangePriorityDialogComponent} from './components/tasks-page/task-edit/task-change-priority-dialog/task-change-priority-dialog.component';
+import {TaskAddFormDialogComponent} from './components/tasks-page/task-add-form-dialog/task-add-form-dialog.component';
 import {TaskEditTypeDialogComponent} from './components/tasks-page/task-edit/task-edit-type-dialog/task-edit-type-dialog.component';
-import {TaskEditDescriptionDialogComponent} from './components/tasks-page/task-edit/task-edit-description-dialog/task-edit-description-dialog.component';
+import {TaskChangeUserDialogComponent} from './components/tasks-page/task-edit/task-change-user-dialog/task-change-user-dialog.component';
 import {TaskChangeStatusDialogComponent} from './components/tasks-page/task-edit/task-change-status-dialog/task-change-status-dialog.component';
-import { TaskAddFormDialogComponent } from './components/tasks-page/task-add-form-dialog/task-add-form-dialog.component';
+import {TaskChangePriorityDialogComponent} from './components/tasks-page/task-edit/task-change-priority-dialog/task-change-priority-dialog.component';
+import {TaskEditDescriptionDialogComponent} from './components/tasks-page/task-edit/task-edit-description-dialog/task-edit-description-dialog.component';
+import {StatusService} from './services/status.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,11 @@ import { TaskAddFormDialogComponent } from './components/tasks-page/task-add-for
     TaskAddFormDialogComponent
 
   ],
+  providers: [
+    StatusService,
+  ],
   imports: [
+    HttpClientModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -58,7 +65,6 @@ import { TaskAddFormDialogComponent } from './components/tasks-page/task-add-for
     MatSelectModule,
     MatCardModule,
     MatGridListModule,
-    CommonModule,
   ],
   exports: [
     CommonModule,

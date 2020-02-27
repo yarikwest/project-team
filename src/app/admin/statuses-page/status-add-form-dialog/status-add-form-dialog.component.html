@@ -8,15 +8,15 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input-full-width">
-      <input type="number" matInput placeholder="Order" formControlName="order" required min="0">
-      <mat-error *ngIf="form.get('order').hasError('min') || form.get('order').hasError('pattern')">
-        Order must be a number and more than 0
+      <input type="number" matInput placeholder="Level" formControlName="level" required min="0">
+      <mat-error *ngIf="form.get('level').hasError('min') || form.get('level').hasError('pattern')">
+        Level must be a number and more than 0
       </mat-error>
-      <mat-error *ngIf="form.get('order').hasError('required')">
-        Order is <strong>required</strong>
+      <mat-error *ngIf="form.get('level').hasError('required')">
+        Level is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+    <mat-checkbox formControlName="active">Active</mat-checkbox>
   </form>
 </div>
 <div mat-dialog-actions>

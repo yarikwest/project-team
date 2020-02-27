@@ -1,14 +1,14 @@
 export interface Status {
   id?: number;
   name: string;
-  isActive: boolean;
-  order: number;
+  active: boolean;
+  level: number;
 }
 
 export interface Priority {
   id?: number;
   name: string;
-  isActive: boolean;
+  active: boolean;
   color: string;
 }
 
@@ -27,7 +27,7 @@ export interface Project {
   identity?: string;
   name: string;
   description: string;
-  isActive: boolean;
+  active: boolean;
   users: User[];
 }
 

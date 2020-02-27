@@ -4,13 +4,7 @@ import {MatDialog, MatTable} from '@angular/material';
 import {StatusAddFormDialogComponent} from './status-add-form-dialog/status-add-form-dialog.component';
 import {StatusEditFormDialogComponent} from './status-edit-form-dialog/status-edit-form-dialog.component';
 import {DeleteRowDialogComponent} from '../shared/components/delete-row-dialog/delete-row-dialog.component';
-
-const ELEMENT_DATA: Status[] = [
-  {id: 0, name: 'ok', isActive: true, order: 0},
-  {id: 1, name: 'to do', isActive: true, order: 1},
-  {id: 2, name: 'doing', isActive: true, order: 2},
-  {id: 3, name: 'done', isActive: true, order: 3},
-];
+import {StatusService} from '../../shared/services/status.service';
 
 @Component({
   selector: 'app-statuses-page',
@@ -20,15 +14,17 @@ const ELEMENT_DATA: Status[] = [
 export class StatusesPageComponent implements OnInit {
 
   @ViewChild(MatTable, {static: false}) table: MatTable<any>;
-  displayedColumns: string[] = ['id', 'order', 'name', 'isActive', 'action'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['id', 'name', 'level', 'active', 'action'];
+  dataSource: Status[];
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private statusService: StatusService
   ) {
   }
 
   ngOnInit() {
+    this.statusService.getAll().subscribe(statuses => this.dataSource = statuses);
   }
 
   openAddForm(): void {
@@ -38,9 +34,10 @@ export class StatusesPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: Status) => {
       if (result) {
-        result.id = this.dataSource.length;
-        this.dataSource.push(result);
-        this.table.renderRows();
+        this.statusService.create(result).subscribe(status => {
+          this.dataSource.push(status);
+          this.table.renderRows();
+        });
       }
     });
   }
@@ -53,8 +50,11 @@ export class StatusesPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dataSource[element.id] = result;
-        this.table.renderRows();
+        this.statusService.update(result).subscribe(status => {
+          const index = this.dataSource.indexOf(element);
+          this.dataSource[index] = status;
+          this.table.renderRows();
+        });
       }
     });
   }
@@ -65,13 +65,15 @@ export class StatusesPageComponent implements OnInit {
       data: element.id,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-        const index: number = this.dataSource.indexOf(element);
-        if (index !== -1) {
-          this.dataSource.splice(index, 1);
-        }
-        this.table.renderRows();
+        this.statusService.remove(element.id).subscribe(() => {
+          const index: number = this.dataSource.indexOf(element);
+          if (index !== -1) {
+            this.dataSource.splice(index, 1);
+          }
+          this.table.renderRows();
+        });
       }
     });
   }

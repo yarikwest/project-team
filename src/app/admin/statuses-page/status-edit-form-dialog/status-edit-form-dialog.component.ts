@@ -22,8 +22,8 @@ export class StatusEditFormDialogComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
       name: new FormControl(this.data.name, [Validators.required]),
-      order: new FormControl(this.data.order, [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
-      isActive: new FormControl(this.data.isActive)
+      level: new FormControl(this.data.level, [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
+      active: new FormControl(this.data.active)
     });
   }
 
@@ -35,8 +35,8 @@ export class StatusEditFormDialogComponent implements OnInit {
     return {
       id: this.data.id,
       name: this.form.value.name,
-      order: this.form.value.order,
-      isActive: this.form.value.isActive
+      level: this.form.value.level,
+      active: this.form.value.active
     };
   }
 
