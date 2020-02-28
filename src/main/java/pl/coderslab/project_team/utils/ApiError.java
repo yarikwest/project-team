@@ -43,7 +43,7 @@ class ApiError {
         this.status = status;
         this.code = status.value();
         this.error = error;
-        this.message = ex.toString();
+        this.message = ex.getMessage();
     }
 
     public void addValidationErrors(List<FieldError> fieldErrors) {
