@@ -22,7 +22,7 @@ export class PriorityEditFormDialogComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl(this.data.name, [Validators.required]),
       color: new FormControl(this.data.color),
-      isActive: new FormControl(this.data.isActive)
+      active: new FormControl(this.data.active)
     });
   }
 
@@ -35,7 +35,7 @@ export class PriorityEditFormDialogComponent implements OnInit {
       id: this.data.id,
       name: this.form.value.name,
       color: this.form.value.color,
-      isActive: this.form.value.isActive
+      active: this.form.value.active
     };
   }
 }

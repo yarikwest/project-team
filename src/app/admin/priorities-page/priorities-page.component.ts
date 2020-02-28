@@ -4,14 +4,7 @@ import {Priority} from '../../shared/interfaces';
 import {DeleteRowDialogComponent} from '../shared/components/delete-row-dialog/delete-row-dialog.component';
 import {PriorityAddFormDialogComponent} from './priority-add-form-dialog/priority-add-form-dialog.component';
 import {PriorityEditFormDialogComponent} from './priority-edit-form-dialog/priority-edit-form-dialog.component';
-
-const ELEMENT_DATA: Priority[] = [
-  {id: 0, color: '#ff0000', name: 'Highest', isActive: true},
-  {id: 1, color: '#ffaa00', name: 'Critical', isActive: true},
-  {id: 2, color: '#ffff00', name: 'Alarming', isActive: true},
-  {id: 3, color: '#00ff00', name: 'Low', isActive: true},
-  {id: 4, color: '#00aaff', name: 'Lowest', isActive: true},
-];
+import {PriorityService} from '../../shared/services/priority.service';
 
 @Component({
   selector: 'app-priorities-page',
@@ -21,15 +14,17 @@ const ELEMENT_DATA: Priority[] = [
 export class PrioritiesPageComponent implements OnInit {
 
   @ViewChild(MatTable, {static: false}) table: MatTable<any>;
-  displayedColumns: string[] = ['id', 'name', 'isActive', 'color', 'action'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['id', 'name', 'color', 'active', 'action'];
+  dataSource: Priority[];
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private priorityService: PriorityService
   ) {
   }
 
   ngOnInit() {
+    this.priorityService.getAll().subscribe(value => this.dataSource = value);
   }
 
   openAddForm(): void {
@@ -39,9 +34,10 @@ export class PrioritiesPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: Priority) => {
       if (result) {
-        result.id = this.dataSource.length;
-        this.dataSource.push(result);
-        this.table.renderRows();
+        this.priorityService.create(result).subscribe(value => {
+          this.dataSource.push(value);
+          this.table.renderRows();
+        });
       }
     });
   }
@@ -54,8 +50,11 @@ export class PrioritiesPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dataSource[element.id] = result;
-        this.table.renderRows();
+        this.priorityService.update(result).subscribe(value => {
+          const index = this.dataSource.indexOf(element);
+          this.dataSource[index] = value;
+          this.table.renderRows();
+        });
       }
     });
   }
@@ -68,11 +67,13 @@ export class PrioritiesPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index: number = this.dataSource.indexOf(element);
-        if (index !== -1) {
-          this.dataSource.splice(index, 1);
-        }
-        this.table.renderRows();
+        this.priorityService.remove(element.id).subscribe(() => {
+          const index: number = this.dataSource.indexOf(element);
+          if (index !== -1) {
+            this.dataSource.splice(index, 1);
+          }
+          this.table.renderRows();
+        });
       }
     });
   }
