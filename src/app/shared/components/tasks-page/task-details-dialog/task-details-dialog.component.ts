@@ -6,6 +6,7 @@ import {TaskChangePriorityDialogComponent} from '../task-edit/task-change-priori
 import {TaskEditTypeDialogComponent} from '../task-edit/task-edit-type-dialog/task-edit-type-dialog.component';
 import {TaskEditDescriptionDialogComponent} from '../task-edit/task-edit-description-dialog/task-edit-description-dialog.component';
 import {TaskChangeStatusDialogComponent} from '../task-edit/task-change-status-dialog/task-change-status-dialog.component';
+import {TaskService} from '../../../services/task.service';
 
 @Component({
   selector: 'app-task-details-dialog',
@@ -15,6 +16,7 @@ import {TaskChangeStatusDialogComponent} from '../task-edit/task-change-status-d
 export class TaskDetailsDialogComponent implements OnInit {
 
   constructor(
+    public taskService: TaskService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<TaskDetailsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Task,
@@ -26,13 +28,13 @@ export class TaskDetailsDialogComponent implements OnInit {
 
   changeUser() {
     const dialogRef = this.dialog.open(TaskChangeUserDialogComponent, {
-      data: this.data.user
+      data: this.data
     });
 
     dialogRef.afterClosed().subscribe((result: User) => {
       if (result) {
-        // save into task
         this.data.user = result;
+        this.updateTask();
       }
     });
   }
@@ -44,8 +46,8 @@ export class TaskDetailsDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: Priority) => {
       if (result) {
-        // save into task
         this.data.priority = result;
+        this.updateTask();
       }
     });
   }
@@ -57,8 +59,8 @@ export class TaskDetailsDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: string) => {
       if (result) {
-        // save into task
         this.data.type = result;
+        this.updateTask();
       }
     });
   }
@@ -71,8 +73,8 @@ export class TaskDetailsDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: string) => {
       if (result) {
-        // save into task
         this.data.description = result;
+        this.updateTask();
       }
     });
   }
@@ -84,9 +86,13 @@ export class TaskDetailsDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: Status) => {
       if (result) {
-        // save into task
         this.data.status = result;
+        this.updateTask();
       }
     });
+  }
+
+  private updateTask() {
+    this.taskService.update(this.data).subscribe(value => this.data = value);
   }
 }

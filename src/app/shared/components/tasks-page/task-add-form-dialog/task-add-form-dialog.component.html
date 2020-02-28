@@ -1,4 +1,7 @@
 <h1 mat-dialog-title>Add new task</h1>
+<mat-error *ngIf="taskService.error$ | async as error">
+  {{error}}
+</mat-error>
 <div mat-dialog-content>
   <form [formGroup]="form">
 
@@ -13,16 +16,21 @@
     <!--    Type-->
     <mat-form-field class="input-full-width">
       <input matInput placeholder="Type" formControlName="type">
-      <mat-error *ngIf="form.get('type').hasError('required')">
-        Type is <strong>required</strong>
-      </mat-error>
     </mat-form-field>
 
-    <!--    Priorities-->
+    <!--    Priority-->
     <mat-form-field class="input-full-width">
-      <mat-label>Priorities</mat-label>
+      <mat-label>Priority</mat-label>
       <mat-select formControlName="priority" [compareWith]="comparePriorities">
         <mat-option *ngFor="let priority of priorities" [value]="priority">{{priority.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--    Status-->
+    <mat-form-field class="input-full-width">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" [compareWith]="compareStatuses">
+        <mat-option *ngFor="let status of statuses" [value]="status">{{status.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -39,5 +47,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="dialogRef.close()">CANCEL</button>
-  <button mat-button [mat-dialog-close]="save()" [disabled]="form.invalid">SAVE</button>
+  <button mat-button (click)="save()" [disabled]="form.invalid">SAVE</button>
 </div>

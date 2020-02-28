@@ -1,7 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Priority, Task, User} from '../../../interfaces';
+import {Priority, Project, Status, Task} from '../../../interfaces';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {TaskService} from '../../../services/task.service';
+import {PriorityService} from '../../../services/priority.service';
+import {StatusService} from '../../../services/status.service';
+import {ProjectService} from '../../../services/project.service';
 
 @Component({
   selector: 'app-task-add-form-dialog',
@@ -11,30 +15,34 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 export class TaskAddFormDialogComponent implements OnInit {
 
   form: FormGroup;
-  priorities: Priority[] = [
-    {id: 0, color: '#ff0000', name: 'Highest', isActive: true},
-    {id: 1, color: '#ffaa00', name: 'Critical', isActive: true},
-    {id: 2, color: '#ffff00', name: 'Alarming', isActive: true},
-    {id: 3, color: '#00ff00', name: 'Low', isActive: true},
-    {id: 4, color: '#00aaff', name: 'Lowest', isActive: true},
-  ];
+  priorities: Priority[];
+  statuses: Status[];
+  project: Project;
+  comparePriorities = this.priorityService.comparePriorities;
+  compareStatuses = this.statusService.compareStatuses;
 
-  comparePriorities = (p1: Priority, p2: Priority): boolean => {
-    return p1.id === p2.id;
-  };
 
   constructor(
-    private fb: FormBuilder,
+    public taskService: TaskService,
     public dialogRef: MatDialogRef<TaskAddFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Task,
+    @Inject(MAT_DIALOG_DATA) public data: number,
+    private fb: FormBuilder,
+    private priorityService: PriorityService,
+    private statusService: StatusService,
+    private projectService: ProjectService,
   ) {
   }
 
   ngOnInit() {
+    this.projectService.getById(this.data).subscribe(value => this.project = value);
+    this.priorityService.getAll().subscribe(value => this.priorities = value);
+    this.statusService.getAll().subscribe(value => this.statuses = value);
+
     this.form = this.fb.group({
         theme: ['', [Validators.required]],
-        type: ['', [Validators.required]],
+        type: [''],
         priority: ['', [Validators.required]],
+        status: ['', [Validators.required]],
         description: ['', [Validators.required, Validators.maxLength(255)]]
       }
     );
@@ -45,14 +53,16 @@ export class TaskAddFormDialogComponent implements OnInit {
       return;
     }
 
-    return {
-      ...this.data,
-      created: new Date(),
+    const task: Task = {
+      project: this.project,
       theme: this.form.value.theme,
-      priority: this.form.value.priority,
       type: this.form.value.type,
+      priority: this.form.value.priority,
+      status: this.form.value.status,
       description: this.form.value.description
     };
+
+    this.taskService.create(task).subscribe(result => this.dialogRef.close(result));
   }
 
 }

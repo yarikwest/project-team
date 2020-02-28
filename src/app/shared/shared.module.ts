@@ -32,6 +32,7 @@ import {StatusService} from './services/status.service';
 import {PriorityService} from './services/priority.service';
 import {UserService} from './services/user.service';
 import {ProjectService} from './services/project.service';
+import {TaskService} from './services/task.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {ProjectService} from './services/project.service';
   ],
   providers: [
     UserService,
+    TaskService,
     StatusService,
     ProjectService,
     PriorityService,
