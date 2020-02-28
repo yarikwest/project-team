@@ -29,4 +29,8 @@ export class StatusService {
   remove(id: number) {
     return this.http.delete(`${environment.apiUrl}/statuses/${id}`);
   }
+
+  compareStatuses(s1: Status, s2: Status): boolean {
+    return s1.id === s2.id;
+  }
 }

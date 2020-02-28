@@ -22,7 +22,7 @@ export class StatusEditFormDialogComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
       name: new FormControl(this.data.name, [Validators.required]),
-      level: new FormControl(this.data.level, [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]),
+      level: new FormControl(this.data.level, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]+$')]),
       active: new FormControl(this.data.active)
     });
   }

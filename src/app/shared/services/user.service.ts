@@ -53,4 +53,8 @@ export class UserService {
 
     return throwError(error);
   }
+
+  compareUsers(u1: User, u2: User): boolean {
+    return u1.id === u2.id;
+  }
 }

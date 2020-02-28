@@ -9,7 +9,8 @@ export class PriorityService {
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   getAll(): Observable<Priority[]> {
     return this.http.get<Priority[]>(`${environment.apiUrl}/priorities`);
@@ -29,5 +30,9 @@ export class PriorityService {
 
   remove(id: number) {
     return this.http.delete(`${environment.apiUrl}/priorities/${id}`);
+  }
+
+  comparePriorities(p1: Priority, p2: Priority): boolean {
+    return p1.id === p2.id;
   }
 }
