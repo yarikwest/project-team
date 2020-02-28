@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+public
 class PriorityDto {
     long id;
     String name;
