@@ -4,9 +4,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.text.Normalizer;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,28 +16,17 @@ import java.util.Set;
 @Entity
 @Table(name = "projects")
 public class Project extends BaseEntity {
-    @NotNull @NotBlank
+    @Column(unique = true)
     String name;
-    @NotNull @Size(max = 255)
     String description;
-    Boolean isActive;
     String identity;
+    @Column(name = "is_active")
+    Boolean active;
     @ManyToMany
     @JoinTable(name = "projects_users",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     Set<User> users = new HashSet<>();
-
-    @Override
-    public String toString() {
-        return "Project{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", identifier='" + identity + '\'' +
-                ", isActive=" + isActive +
-                ", users=" + users +
-                '}';
-    }
 
     @PrePersist
     @PostUpdate
@@ -49,6 +35,6 @@ public class Project extends BaseEntity {
                 .replaceAll("\\p{M}", "")
                 .replaceAll("ł", "l")
                 .replaceAll("Ł", "L")
-                .replaceAll(" ", "");
+                .replaceAll(" ", "-");
     }
 }
