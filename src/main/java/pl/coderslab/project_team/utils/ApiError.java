@@ -1,13 +1,17 @@
 package pl.coderslab.project_team.utils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,6 +23,8 @@ class ApiError {
     LocalDateTime timestamp;
     String error;
     String message;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    List<ApiSubError> subErrors;
 
     private ApiError() {
         timestamp = LocalDateTime.now();
@@ -38,5 +44,28 @@ class ApiError {
         this.code = status.value();
         this.error = error;
         this.message = ex.toString();
+    }
+
+    public void addValidationErrors(List<FieldError> fieldErrors) {
+        fieldErrors.forEach(this::addValidationError);
+    }
+
+    private void addSubError(ApiSubError subError) {
+        if (subErrors == null) {
+            subErrors = new ArrayList<>();
+        }
+        subErrors.add(subError);
+    }
+
+    private void addValidationError(String object, String field, Object rejectedValue, String message) {
+        addSubError(new ApiValidationError(object, field, rejectedValue, message));
+    }
+
+    private void addValidationError(FieldError fieldError) {
+        this.addValidationError(
+                fieldError.getObjectName(),
+                fieldError.getField(),
+                fieldError.getRejectedValue(),
+                fieldError.getDefaultMessage());
     }
 }
