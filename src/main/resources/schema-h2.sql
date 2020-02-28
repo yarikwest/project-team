@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS projects CASCADE;
 CREATE TABLE projects
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
-    name        VARCHAR(250) NOT NULL,
+    name        VARCHAR(250) NOT NULL UNIQUE,
     description VARCHAR(255) NOT NULL,
     is_active   BOOLEAN DEFAULT FALSE,
     identity    VARCHAR(250),
