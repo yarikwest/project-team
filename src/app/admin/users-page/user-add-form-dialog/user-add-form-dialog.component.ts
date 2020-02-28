@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '../../../shared/interfaces';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserService} from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-user-add-form-dialog',
@@ -13,7 +14,8 @@ export class UserAddFormDialogComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<UserAddFormDialogComponent>
+    public dialogRef: MatDialogRef<UserAddFormDialogComponent>,
+    public userService: UserService
   ) {
   }
 
@@ -23,6 +25,7 @@ export class UserAddFormDialogComponent implements OnInit {
       firstName: new FormControl('', [Validators.maxLength(30)]),
       lastName: new FormControl('', [Validators.maxLength(30)]),
       email: new FormControl('', [Validators.required, Validators.email]),
+      admin: new FormControl(false)
     });
   }
 
@@ -32,12 +35,14 @@ export class UserAddFormDialogComponent implements OnInit {
       return;
     }
 
-    return {
+    const user: User = {
       login: this.form.value.login,
-      password: [...Array(16)].map(i => (~~(Math.random() * 36)).toString(36)).join(''), // generate random password string
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
-      email: this.form.value.email
+      email: this.form.value.email,
+      admin: this.form.value.admin
     };
+
+    this.userService.create(user).subscribe(result => this.dialogRef.close(result));
   }
 }

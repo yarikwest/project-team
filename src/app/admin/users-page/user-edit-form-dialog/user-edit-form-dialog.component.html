@@ -1,4 +1,7 @@
 <h1 mat-dialog-title>Edit user</h1>
+<mat-error *ngIf="userService.error$ | async as error">
+  {{error}}
+</mat-error>
 <div mat-dialog-content>
   <form [formGroup]="form">
     <mat-form-field class="input-full-width">
@@ -31,9 +34,10 @@
         Email is <strong>required</strong>
       </mat-error>
     </mat-form-field>
+    <mat-checkbox formControlName="admin">Admin</mat-checkbox>
   </form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="dialogRef.close()">CANCEL</button>
-  <button mat-button [mat-dialog-close]="save()" [disabled]="form.invalid">SAVE</button>
+  <button mat-button (click)="save()" [disabled]="form.invalid">SAVE</button>
 </div>

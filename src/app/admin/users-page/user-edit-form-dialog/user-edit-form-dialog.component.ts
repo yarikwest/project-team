@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {User} from '../../../shared/interfaces';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserService} from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-user-edit-form-dialog',
@@ -13,6 +14,7 @@ export class UserEditFormDialogComponent implements OnInit {
   form: FormGroup;
 
   constructor(
+    public userService: UserService,
     public dialogRef: MatDialogRef<UserEditFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User
   ) {
@@ -24,6 +26,7 @@ export class UserEditFormDialogComponent implements OnInit {
       firstName: new FormControl(this.data.firstName, [Validators.maxLength(30)]),
       lastName: new FormControl(this.data.lastName, [Validators.maxLength(30)]),
       email: new FormControl(this.data.email, [Validators.required, Validators.email]),
+      admin: new FormControl(this.data.admin)
     });
   }
 
@@ -33,13 +36,15 @@ export class UserEditFormDialogComponent implements OnInit {
       return;
     }
 
-    return {
+    const user: User = {
+      id: this.data.id,
       login: this.form.value.login,
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
       email: this.form.value.email,
-      id: this.data.id,
-      password: this.data.password
+      admin: this.form.value.admin
     };
+
+    this.userService.update(user).subscribe(result => this.dialogRef.close(result));
   }
 }

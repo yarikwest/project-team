@@ -30,6 +30,7 @@ import {TaskChangePriorityDialogComponent} from './components/tasks-page/task-ed
 import {TaskEditDescriptionDialogComponent} from './components/tasks-page/task-edit/task-edit-description-dialog/task-edit-description-dialog.component';
 import {StatusService} from './services/status.service';
 import {PriorityService} from './services/priority.service';
+import {UserService} from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {PriorityService} from './services/priority.service';
   providers: [
     StatusService,
     PriorityService,
+    UserService,
   ],
   imports: [
     HttpClientModule,
