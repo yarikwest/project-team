@@ -1,5 +1,5 @@
 insert into USERS (LOGIN, PASSWORD, EMAIL, FIRST_NAME, LAST_NAME, CREATED, UPDATED)
-values ('edeighton0', 'gh4Ulj0EY1x1', 'edeighton0@sfgate.com', 'Elladine', 'Deighton', '2019-09-01 19:14:17',
+values ('admin', 'admin', 'admin@mail.com', 'Elladine', 'Deighton', '2019-09-01 19:14:17',
         '2020-01-05 17:50:09'),
        ('llevison1', 'y7AVbLj4YBvd', 'llevison1@fda.gov', 'Lorrie', 'Levison', '2019-06-16 22:21:48',
         '2020-01-10 15:20:24'),
@@ -19,6 +19,9 @@ values ('edeighton0', 'gh4Ulj0EY1x1', 'edeighton0@sfgate.com', 'Elladine', 'Deig
        ('cselesnick9', '4037yY9VGd', 'cselesnick9@mashable.com', 'Cosetta', 'Selesnick', '2019-03-29 01:27:15',
         '2020-01-08 22:22:00');
 
+update USERS
+set IS_ADMIN = true
+where ID = 1;
 
 insert into STATUSES (NAME, LEVEL, IS_ACTIVE, CREATED, UPDATED)
 values ('Muffen', 1, true, '2019-07-16 18:59:31', '2020-01-15 04:42:46'),
