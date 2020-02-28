@@ -2,16 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 import {Project, User} from '../../../shared/interfaces';
-
-const ELEMENT_DATA_USERS: User[] = [
-  {id: 0, login: 'login0', password: 'password0', firstName: 'first0', lastName: 'last0', email: 'email@o0.pl'},
-  {id: 1, login: 'login1', password: 'password1', firstName: 'first1', lastName: 'last1', email: 'email@o1.pl'},
-  {id: 2, login: 'login2', password: 'password2', firstName: 'first2', lastName: 'last2', email: 'email@o2.pl'},
-  {id: 3, login: 'login3', password: 'password3', firstName: 'first3', lastName: 'last3', email: 'email@o3.pl'},
-  {id: 4, login: 'login4', password: 'password4', firstName: 'first4', lastName: 'last4', email: 'email@o4.pl'},
-  {id: 5, login: 'login5', password: 'password5', firstName: 'first5', lastName: 'last5', email: 'email@o5.pl'},
-  {id: 6, login: 'login6', password: 'password6', firstName: 'first6', lastName: 'last6', email: 'email@o6.pl'},
-];
+import {ProjectService} from '../../../shared/services/project.service';
+import {UserService} from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-project-add-form-dialog',
@@ -21,22 +13,26 @@ const ELEMENT_DATA_USERS: User[] = [
 export class ProjectAddFormDialogComponent implements OnInit {
 
   form: FormGroup;
-  allUsers = ELEMENT_DATA_USERS;
+  allUsers: User[];
   compareUsers = (u1: User, u2: User): boolean => {
     return u1.id === u2.id;
   };
 
   constructor(
+    public projectService: ProjectService,
     public dialogRef: MatDialogRef<ProjectAddFormDialogComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userService: UserService
   ) {
   }
 
   ngOnInit() {
+    this.userService.getAll().subscribe(value => this.allUsers = value);
+
     this.form = this.fb.group({
         name: ['', [Validators.required]],
         description: ['', [Validators.maxLength(255)]],
-        isActive: [false],
+        active: [false],
         users: [[]]
       }
     );
@@ -47,12 +43,14 @@ export class ProjectAddFormDialogComponent implements OnInit {
       return;
     }
 
-    return {
+    const project: Project = {
       name: this.form.value.name,
       description: this.form.value.description,
-      isActive: this.form.value.isActive,
+      active: this.form.value.isActive,
       users: this.form.value.users
     };
+
+    this.projectService.create(project).subscribe(result => this.dialogRef.close(result));
   }
 }
 

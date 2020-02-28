@@ -1,4 +1,7 @@
 <h1 mat-dialog-title>Add new project</h1>
+<mat-error *ngIf="projectService.error$ | async as error">
+  {{error}}
+</mat-error>
 <div mat-dialog-content>
   <form [formGroup]="form">
     <mat-form-field class="input-full-width">
@@ -21,10 +24,10 @@
         <mat-option *ngFor="let user of allUsers" [value]="user">{{user.firstName}} {{user.lastName}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+    <mat-checkbox formControlName="active">Active</mat-checkbox>
   </form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="dialogRef.close()">CANCEL</button>
-  <button mat-button [mat-dialog-close]="save()" [disabled]="form.invalid">SAVE</button>
+  <button mat-button (click)="save()" [disabled]="form.invalid">SAVE</button>
 </div>

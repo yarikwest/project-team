@@ -1,18 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatTable} from '@angular/material';
-import {Priority, Project, User} from '../../shared/interfaces';
+import {Project} from '../../shared/interfaces';
 import {DeleteRowDialogComponent} from '../shared/components/delete-row-dialog/delete-row-dialog.component';
 import {ProjectAddFormDialogComponent} from './project-add-form-dialog/project-add-form-dialog.component';
 import {ProjectEditFormDialogComponent} from './project-edit-form-dialog/project-edit-form-dialog.component';
 import {ProjectDetailsDialogComponent} from './project-details-dialog/project-details-dialog.component';
-
-const ELEMENT_DATA: Project[] = [
-  {id: 0, created: new Date(), name: 'project0', description: 'lorem0', identity: 'ident0', isActive: true, users: []},
-  {id: 1, created: new Date(), name: 'project1', description: 'lorem1', identity: 'ident1', isActive: true, users: []},
-  {id: 2, created: new Date(), name: 'project2', description: 'lorem2', identity: 'ident2', isActive: true, users: []},
-  {id: 3, created: new Date(), name: 'project3', description: 'lorem3', identity: 'ident3', isActive: true, users: []},
-  {id: 4, created: new Date(), name: 'project4', description: 'lorem4', identity: 'ident4', isActive: true, users: []},
-];
+import {ProjectService} from '../../shared/services/project.service';
 
 @Component({
   selector: 'app-projects-page',
@@ -23,14 +16,16 @@ export class ProjectsPageComponent implements OnInit {
 
   @ViewChild(MatTable, {static: false}) table: MatTable<any>;
   displayedColumns: string[] = ['id', 'created', 'name', 'identity', 'tasks', 'details', 'action'];
-  dataSource = ELEMENT_DATA;
+  dataSource: Project[];
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public projectService: ProjectService
   ) {
   }
 
   ngOnInit() {
+    this.projectService.getAll().subscribe(value => this.dataSource = value);
   }
 
   openAddForm(): void {
@@ -40,14 +35,13 @@ export class ProjectsPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: Project) => {
       if (result) {
-        result.id = this.dataSource.length;
         this.dataSource.push(result);
         this.table.renderRows();
       }
     });
   }
 
-  openEditForm(element: Priority): void {
+  openEditForm(element: Project): void {
     const dialogRef = this.dialog.open(ProjectEditFormDialogComponent, {
       width: '500px',
       data: element
@@ -55,7 +49,8 @@ export class ProjectsPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dataSource[element.id] = result;
+        const index = this.dataSource.indexOf(element);
+        this.dataSource[index] = result;
         this.table.renderRows();
       }
     });
@@ -69,11 +64,13 @@ export class ProjectsPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index: number = this.dataSource.indexOf(element);
-        if (index !== -1) {
-          this.dataSource.splice(index, 1);
-        }
-        this.table.renderRows();
+        this.projectService.remove(element.id).subscribe(() => {
+          const index: number = this.dataSource.indexOf(element);
+          if (index !== -1) {
+            this.dataSource.splice(index, 1);
+          }
+          this.table.renderRows();
+        });
       }
     });
   }
@@ -83,9 +80,5 @@ export class ProjectsPageComponent implements OnInit {
       width: '75vw',
       data: element
     });
-  }
-
-  openTasksList(id: number) {
-
   }
 }
