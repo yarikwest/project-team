@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+public
 class UserDto {
     long id;
     @NotBlank(message = "Login is mandatory")
