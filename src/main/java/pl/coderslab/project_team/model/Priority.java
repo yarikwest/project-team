@@ -3,6 +3,7 @@ package pl.coderslab.project_team.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -21,5 +22,6 @@ public class Priority extends BaseEntity {
     String name;
     @Size(min = 4, max = 7)
     String color;
-    Boolean isActive;
+    @Column(name = "is_active")
+    Boolean active;
 }
