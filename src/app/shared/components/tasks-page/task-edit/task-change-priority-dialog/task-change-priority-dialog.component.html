@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <mat-form-field class="input-full-width">
+    <mat-label>Priorities</mat-label>
+    <mat-select [(value)]="selectedPriority" [compareWith]="comparePriorities">
+      <mat-option *ngFor="let priority of priorities" [value]="priority">{{priority.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="selectedPriority" cdkFocusInitial>SAVE</button>
+</div>

@@ -1,0 +1,62 @@
+<h1 mat-dialog-title>{{data.theme}} <i>in list </i><strong>{{data.status.name | uppercase}}</strong></h1>
+<div mat-dialog-content>
+  <div class="row">
+    <div class="task-variable-container">
+      <mat-icon>account_box</mat-icon>
+      <span>Attached to: <button mat-button class="mat-button-edit" (click)="changeUser()">Edit</button></span>
+      <div class="user-avatar" *ngIf="data.user; else noOne">
+        {{data.user.firstName + ' ' + data.user.lastName}}
+      </div>
+      <ng-template #noOne><br>No one</ng-template>
+    </div>
+    <div class="task-variable-container">
+      <mat-icon>priority_high</mat-icon>
+      <span>Priority: <button mat-button class="mat-button-edit" (click)="changePriority()">Edit</button></span>
+      <div [ngStyle]="{backgroundColor: data.priority.color}" class="priority-type">
+        {{data.priority.name | uppercase}}
+      </div>
+    </div>
+    <div class="task-variable-container" id="created">
+      <mat-icon>today</mat-icon>
+      <span>Created:</span>
+      <div>
+        {{data.created | date}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="task-variable-container">
+      <mat-icon>table_chart</mat-icon>
+      <span>Project:</span>
+      <div>
+        {{data.project.name}}
+      </div>
+    </div>
+    <div class="task-variable-container">
+      <mat-icon>category</mat-icon>
+      <span>Type: <button mat-button class="mat-button-edit" (click)="editType()">Edit</button></span>
+      <div>
+        {{data.type}}
+      </div>
+    </div>
+    <div class="task-variable-container" id="status">
+      <mat-icon>library_add_check</mat-icon>
+      <span>Status:</span>
+      <div>
+        <button mat-button class="mat-button-edit" (click)="changeStatus()">Edit</button>{{data.status.name}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="task-variable-container description">
+      <mat-icon>description</mat-icon>
+      <span>Description: <button mat-button class="mat-button-edit" (click)="editDescription()">Edit</button></span>
+      <div>
+        {{data.description}}
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()" cdkFocusInitial>CLOSE</button>
+</div>

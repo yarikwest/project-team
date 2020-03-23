@@ -1,0 +1,8 @@
+mat-card {
+  margin: 25px !important;
+}
+
+.about-unit-card {
+  width: 100%;
+  height: calc(100% - 50px);
+}

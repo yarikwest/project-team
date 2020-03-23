@@ -1,0 +1,19 @@
+mat-card{
+  margin: 10px;
+}
+
+.tasks-all-container{
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.tasks-status-container {
+  display: inline-block;
+  margin: 0 25px 25px 0;
+}
+
+.tasks-status-panel {
+  padding-right: 15px;
+  overflow-y: auto;
+  height: 75vh;
+}

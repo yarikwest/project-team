@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>Edit user</h1>
+<mat-error *ngIf="userService.error$ | async as error">
+  {{error}}
+</mat-error>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field class="input-full-width">
+      <input matInput placeholder="Login" formControlName="login" required>
+      <mat-error *ngIf="form.get('login').hasError('maxlength') && !form.get('login').hasError('required')">
+        Login must be no more than 30 characters
+      </mat-error>
+      <mat-error *ngIf="form.get('login').hasError('required')">
+        Login is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-full-width">
+      <input matInput placeholder="First Name" formControlName="firstName" maxlength="30">
+      <mat-error *ngIf="form.get('firstName').hasError('maxlength')">
+        First Name must be no more than 30 characters
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-full-width">
+      <input matInput placeholder="Last Name" formControlName="lastName" maxlength="30">
+      <mat-error *ngIf="form.get('lastName').hasError('maxlength')">
+        Last Name must be no more than 30 characters
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-full-width">
+      <input matInput placeholder="Email" formControlName="email" required>
+      <mat-error *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="form.get('email').hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-checkbox formControlName="admin">Admin</mat-checkbox>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">CANCEL</button>
+  <button mat-button (click)="save()" [disabled]="form.invalid">SAVE</button>
+</div>

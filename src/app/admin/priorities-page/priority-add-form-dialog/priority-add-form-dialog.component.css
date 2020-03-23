@@ -1,0 +1,11 @@
+.input-full-width {
+  width: 100%;
+}
+.mat-dialog-content{
+  overflow: hidden;
+}
+
+.input-color-width {
+  width: 80px;
+  display: block;
+}

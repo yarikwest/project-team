@@ -1,0 +1,27 @@
+mat-sidenav-container{
+  height: calc(100% - 64px);
+  top: 64px;
+}
+mat-sidenav {
+  background-color: #3f51b5;
+  width: 200px;
+  box-shadow: 5px 0 5px -3px rgba(0,0,0,.2), 8px 0 10px 1px rgba(0,0,0,.14), 3px 0 14px 2px rgba(0,0,0,.12);
+}
+
+mat-sidenav-content {
+  padding: 20px;
+}
+
+mat-toolbar{
+  position: fixed;
+  box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+  z-index: 2;
+}
+
+mat-icon{
+  color: white;
+}
+
+.mat-line{
+  color: white;
+}

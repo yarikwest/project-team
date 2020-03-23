@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>Details of project</h1>
+<div mat-dialog-content>
+  <mat-card>
+    <mat-card-title>About project</mat-card-title>
+    <mat-card-content>
+      <mat-grid-list cols="3" rowHeight="100px">
+        <mat-grid-tile>
+          <mat-card class="about-unit-card">
+            <strong>Created:</strong><br>
+            {{data.created | date}}
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-card class="about-unit-card">
+            <strong>Name:</strong><br>
+            {{data.name}}
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-card class="about-unit-card">
+            <strong>Identity:</strong><br>
+            {{data.identity}}
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3" rowspan="2">
+          <mat-card class="about-unit-card">
+            <strong>Description:</strong><br>
+            {{data.description}}
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="project-card">
+    <mat-card-title>Users</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let user of data.users; last as last">{{user.firstName}} {{user.lastName}}
+          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">CLOSE</button>
+</div>

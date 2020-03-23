@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Edit status</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field class="input-full-width">
+      <input matInput placeholder="Name" formControlName="name" required>
+      <mat-error *ngIf="form.get('name').hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-full-width">
+      <input type="number" matInput placeholder="Level" formControlName="level" required min="1">
+      <mat-error *ngIf="form.get('level').hasError('min') || form.get('level').hasError('pattern')">
+        Level must be a number and more than 0
+      </mat-error>
+      <mat-error *ngIf="form.get('level').hasError('required')">
+        Level is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-checkbox formControlName="active">Active</mat-checkbox>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">CANCEL</button>
+  <button mat-button [mat-dialog-close]="save()" [disabled]="form.invalid">SAVE</button>
+</div>

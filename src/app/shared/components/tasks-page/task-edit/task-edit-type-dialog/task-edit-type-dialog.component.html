@@ -1,0 +1,13 @@
+<div mat-dialog-content>
+  <mat-form-field class="input-full-width">
+      <textarea matInput #description maxlength="255" placeholder="Description" [formControl]="typeFormControl"
+                cdkTextareaAutosize></textarea>
+    <mat-hint align="start" *ngIf="typeFormControl.hasError('maxlength')">
+      <strong class="mat-error">To long</strong>
+    </mat-hint>
+    <mat-hint align="end">{{description.value.length}} / 50</mat-hint>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="save()" [disabled]="typeFormControl.invalid">SAVE</button>
+</div>
